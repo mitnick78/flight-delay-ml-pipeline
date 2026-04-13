@@ -1,5 +1,12 @@
 # Flight delay ml pipeline
 
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-blue)
+![dbt](https://img.shields.io/badge/Transform-dbt-orange)
+![React](https://img.shields.io/badge/Frontend-React-blue)
+![ML](https://img.shields.io/badge/Machine%20Learning-Scikit--learn-green)
+![Status](https://img.shields.io/badge/status-in%20progress-yellow)
+
 ## 📚 Sommaire
 
 - [🧰 Installation](#-installation)
