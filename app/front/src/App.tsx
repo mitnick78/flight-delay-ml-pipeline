@@ -4,7 +4,7 @@ import { getRoundedHourFormatted } from "./utils/toolsDate";
 import type { PredictData } from "./types/predict.type";
 import type { CityWithoutLocation } from "./types/city.types";
 import type { FlightForm } from "./types/flight.type";
-
+import ButtonCustom from "./components/Button/ButtonCustom";
 
 const CITIES: CityWithoutLocation[] = [
   { id_city: "MHT", name_city: "Manchester, NH" },
@@ -394,10 +394,10 @@ export default function App() {
 
       if (!res.ok) throw new Error(`Erreur ${res.status} : ${res.statusText}`);
 
-      const data = await res.json() as PredictData
-      console.log('data brut :', data) 
-      
-      setResponse(data );
+      const data = (await res.json()) as PredictData;
+      console.log("data brut :", data);
+
+      setResponse(data);
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -409,7 +409,6 @@ export default function App() {
     }
   };
 
-
   const now = new Date();
   const maxDate = new Date();
   maxDate.setDate(now.getDate() + 15);
@@ -417,33 +416,44 @@ export default function App() {
   const formatDate = (date: Date) => {
     return date.toISOString().slice(0, 16);
   };
-  console.log({response})
+  console.log({ response });
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-
       {/* Header */}
       <header className="bg-white border-b border-gray-100 px-6 py-4 flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
-          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          <svg
+            className="w-4 h-4 text-white"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+            />
           </svg>
         </div>
         <div>
-          <h1 className="text-sm font-bold text-gray-900">Flight Delay Predictor</h1>
+          <h1 className="text-sm font-bold text-gray-900">
+            Flight Delay Predictor
+          </h1>
         </div>
       </header>
 
       <main className="flex-1 max-w-2xl mx-auto w-full px-4 py-10 space-y-6">
-
         {/* Formulaire */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
-          <h2 className="text-base font-bold text-gray-900 mb-1">Paramètres du vol</h2>
+          <h2 className="text-base font-bold text-gray-900 mb-1">
+            Paramètres du vol
+          </h2>
           <p className="text-sm text-gray-400 mb-6">
             Renseigne les informations pour lancer la prédiction.
           </p>
 
           <div className="grid grid-cols-2 gap-4 mb-6">
-
             {/* Origine */}
             <div>
               <label className="block text-xs font-semibold uppercase tracking-widest text-gray-500 mb-1.5">
@@ -454,11 +464,13 @@ export default function App() {
                 onChange={(e) => set("origin")(e.target.value)}
                 className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition bg-white"
               >
-                {CITIES.filter((c)=>c.id_city !== form.destination).map((c) => (
-                  <option key={c.id_city} value={c.id_city}>
-                    {c.name_city} ({c.id_city})
-                  </option>
-                ))}
+                {CITIES.filter((c) => c.id_city !== form.destination).map(
+                  (c) => (
+                    <option key={c.id_city} value={c.id_city}>
+                      {c.name_city} ({c.id_city})
+                    </option>
+                  ),
+                )}
               </select>
             </div>
 
@@ -472,7 +484,7 @@ export default function App() {
                 onChange={(e) => set("destination")(e.target.value)}
                 className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition bg-white"
               >
-                {CITIES.filter((c)=>c.id_city !== form.origin).map((c) => (
+                {CITIES.filter((c) => c.id_city !== form.origin).map((c) => (
                   <option key={c.id_city} value={c.id_city}>
                     {c.name_city} ({c.id_city})
                   </option>
@@ -496,29 +508,50 @@ export default function App() {
             </div>
           </div>
 
-          <button
-            onClick={handleSubmit}
-            disabled={loading}
-            className="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] disabled:opacity-60 text-white text-sm font-semibold tracking-wide transition-all duration-150 flex items-center justify-center gap-2"
-          >
+          <ButtonCustom onClick={handleSubmit} disabled={loading}>
             {loading ? (
               <>
-                <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                <svg
+                  className="animate-spin w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  />
                 </svg>
                 Analyse en cours…
               </>
             ) : (
               "Lancer la prédiction"
             )}
-          </button>
+          </ButtonCustom>
 
           {/* Erreur */}
           {error !== null && (
             <div className="mt-4 flex items-start gap-3 bg-red-50 border border-red-100 rounded-xl px-4 py-3">
-              <svg className="w-4 h-4 text-red-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+              <svg
+                className="w-4 h-4 text-red-500 mt-0.5 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                />
               </svg>
               <p className="text-sm text-red-600">{error}</p>
             </div>
@@ -526,9 +559,11 @@ export default function App() {
         </div>
 
         {response !== null && (
-          <ViewPredict dataPredict={response} onclick={() => setResponse(null)} />
+          <ViewPredict
+            dataPredict={response}
+            onclick={() => setResponse(null)}
+          />
         )}
-
       </main>
     </div>
   );
